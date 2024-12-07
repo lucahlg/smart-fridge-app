@@ -65,7 +65,22 @@ After cloning the repository, follow these steps to set up the project:
      npm install
      ```
 
-3. **Run the Application**:
+3. **Create the Database Tables**:
+   - Navigate to the `backend` folder:
+     ```bash
+     cd ../backend
+     ```
+   - Ensure your virtual environment is active:
+     ```bash
+     source venv/bin/activate
+     ```
+   - Run the `create_tables.py` script to initialize the database tables:
+     ```bash
+     python create_tables.py
+     ```
+   - This script will create all necessary tables defined in `models.py`.
+
+4. **Run the Application**:
    - Start the Flask backend:
      ```bash
      cd ../backend
@@ -77,10 +92,8 @@ After cloning the repository, follow these steps to set up the project:
      npm start
      ```
 
-4. **Access the Application**:
+5. **Access the Application**:
    - React app: `http://localhost:3000`
    - Flask API: `http://localhost:5000`
 
 ---
-
-This ensures anyone cloning the project can quickly get it running with the correct dependencies and setup.
