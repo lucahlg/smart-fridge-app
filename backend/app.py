@@ -1,19 +1,27 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from extensions import db
+from routes.units import units_bp
+from routes.food_items import food_items_bp
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+def create_app():
+    app = Flask(__name__)
+    CORS(app, resources={r"/*": {"origins": "http://localhost:3001"}})  # Update this line
 
-# Example SQLAlchemy config (using SQLite for now)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///smart_fridge.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///smart_fridge.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+    db.init_app(app)
 
-@app.route('/')
-def home():
-    return {"message": "Welcome to the Smart Fridge App!"}
+    app.register_blueprint(units_bp)
+    app.register_blueprint(food_items_bp)
+
+    @app.route('/')
+    def home():
+        return {"message": "Welcome to the Smart Fridge App!"}
+
+    return app
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(debug=True)
