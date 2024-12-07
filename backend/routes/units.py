@@ -19,17 +19,10 @@ def create_unit():
     db.session.commit()
     return jsonify({'id': unit.id, 'name': unit.name}), 201
 
-@units_bp.route('/api/units/<int:id>', methods=['PUT', 'DELETE'])
+@units_bp.route('/api/units/<int:id>', methods=['PUT'])
 def update_unit(id):
     unit = Unit.query.get_or_404(id)
-    if request.method == 'PUT':
-        data = request.json
-        unit.name = data.get('name', unit.name)
-        db.session.commit()
-        return jsonify({'id': unit.id, 'name': unit.name})
-    elif request.method == 'DELETE':
-        db.session.delete(unit)
-        db.session.commit()
-        return '', 204
-
-
+    data = request.json
+    unit.name = data.get('name', unit.name)
+    db.session.commit()
+    return jsonify({'id': unit.id, 'name': unit.name})
