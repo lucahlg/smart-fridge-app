@@ -26,10 +26,3 @@ def update_unit(id):
     unit.name = data.get('name', unit.name)
     db.session.commit()
     return jsonify({'id': unit.id, 'name': unit.name})
-
-@units_bp.route('/api/units/<int:id>', methods=['DELETE'])
-def delete_unit(id):
-    unit = Unit.query.get_or_404(id)
-    db.session.delete(unit)
-    db.session.commit()
-    return '', 204
