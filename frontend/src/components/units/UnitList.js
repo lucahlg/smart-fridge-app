@@ -20,6 +20,13 @@ const UnitList = () => {
         fetchUnits();
     };
 
+    const handleDelete = async (id) => {
+        await fetch(`http://localhost:5000/api/units/${id}`, {
+            method: 'DELETE',
+        });
+        fetchUnits();
+    };
+
     useEffect(() => {
         fetchUnits();
     }, []);
@@ -32,6 +39,7 @@ const UnitList = () => {
                 {units.map((unit) => (
                     <li key={unit.id} className="list-item">
                         <span>{unit.name}</span>
+                        <button onClick={() => handleDelete(unit.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
@@ -40,3 +48,5 @@ const UnitList = () => {
 };
 
 export default UnitList;
+
+
